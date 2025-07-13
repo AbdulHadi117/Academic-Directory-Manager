@@ -10,11 +10,20 @@ import java.util.ArrayList;
 public class Utility {
 
     // Base Directory Path
-    public String BASE_DIRECTORY;
+    private final String BASE_DIRECTORY;
 
     // Constructor
     public Utility() {
         BASE_DIRECTORY = loadPath();
+    }
+
+    /**
+     * Gets the base directory where the semesters are stored.
+     *
+     * @return The base directory.
+     */
+    public String getDirectoryPath() {
+        return BASE_DIRECTORY;
     }
 
     /**
@@ -43,17 +52,6 @@ public class Utility {
 
     /**
      * Creates a course folder with appropriate sub-folders.
-     *
-     * If the semester folder does not exist, it creates the semester folder.
-     * Then it creates the course folder.
-     *
-     * If the withLab parameter is true, it creates the following sub-folders: -
-     * Lectures - Labs Inside the Lectures folder, it creates: - Assignments -
-     * Notes Inside the Labs folder, it creates: - Assignments - Activities -
-     * Project
-     *
-     * If the withLab parameter is false, it only creates the following
-     * sub-folders: - Assignments - Notes
      *
      * @param path the base directory path
      * @param semester the semester name
