@@ -162,4 +162,28 @@ public class Utility {
         // Convert the list to an array and return it
         return semesters.toArray(String[]::new);
     }
+
+    /**
+     * Deletes a directory recursively.
+     *
+     * This method deletes all files and subdirectories within the specified
+     * directory, then deletes the directory itself.
+     *
+     * @param dir The directory to be deleted.
+     */
+    public static void deleteDirectoryRecursively(File dir) {
+        // Check if the file is a directory
+        if (dir.isDirectory()) {
+            // List all files and subdirectories in the directory
+            File[] children = dir.listFiles();
+            if (children != null) {
+                // Recursively delete each child
+                for (File child : children) {
+                    deleteDirectoryRecursively(child);
+                }
+            }
+        }
+        // Delete the directory or file
+        dir.delete();
+    }
 }
