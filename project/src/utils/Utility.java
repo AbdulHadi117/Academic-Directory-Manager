@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Utility {
 
@@ -132,5 +133,33 @@ public class Utility {
 
         // Semester folder already exists
         return false;
+    }
+
+    /**
+     * Returns a list of semester names from the specified path.
+     *
+     * @param path The path to list the semesters from.
+     * @return An array of semester names.
+     */
+    public static String[] listSemesters(String path) {
+        File dir = new File(path);
+        ArrayList<String> semesters = new ArrayList<>();
+
+        // Get a list of all files and directories in the path
+        File[] files = dir.listFiles();
+
+        if (files != null) {
+            // Iterate through the list of files and directories
+            for (File f : files) {
+                // Check if the file is a directory (i.e. a semester)
+                if (f.isDirectory()) {
+                    // Add the semester name to the list
+                    semesters.add(f.getName());
+                }
+            }
+        }
+
+        // Convert the list to an array and return it
+        return semesters.toArray(String[]::new);
     }
 }
