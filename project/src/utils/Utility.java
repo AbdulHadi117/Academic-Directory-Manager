@@ -7,7 +7,12 @@ import java.io.InputStreamReader;
 
 public class Utility {
     // Base Directory Path
-    public String BASE_DIRECTORY = loadPath();
+    public String BASE_DIRECTORY;
+
+    // Constructor
+    public Utility() {
+        BASE_DIRECTORY = loadPath();
+    }
 
     /**
      * Gets the base directory path from the assets/path.txt file.
