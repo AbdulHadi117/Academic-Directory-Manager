@@ -1,11 +1,13 @@
 package Utility;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class Utility {
+
     // Base Directory Path
     public String BASE_DIRECTORY;
 
@@ -35,6 +37,79 @@ public class Utility {
             // Handle the IO Exception
             System.out.println("Error: " + e.getMessage());
             return null;
+        }
+    }
+
+    /**
+     * Creates a course folder with appropriate sub-folders.
+     *
+     * If the semester folder does not exist, it creates the semester folder.
+     * Then it creates the course folder.
+     *
+     * If the withLab parameter is true, it creates the following sub-folders: -
+     * Lectures - Labs Inside the Lectures folder, it creates: - Assignments -
+     * Notes Inside the Labs folder, it creates: - Assignments - Activities -
+     * Project
+     *
+     * If the withLab parameter is false, it only creates the following
+     * sub-folders: - Assignments - Notes
+     *
+     * @param path the base directory path
+     * @param semester the semester name
+     * @param course the course name
+     * @param withLab whether to create the lab related folders
+     * @return true if successful, false otherwise
+     */
+    public static boolean createCourse(String path, String semester, String course, boolean withLab) {
+        File semesterFolder = new File(path, semester);
+        File courseFolder = new File(semesterFolder, course);
+
+        if (!semesterFolder.exists()) {
+            createSemester(path, semester);
+        }
+
+        if (!courseFolder.exists()) {
+            courseFolder.mkdirs();
+        }
+
+        try {
+            if (withLab) {
+                // Create Lectures folder
+                File lecturesFolder = new File(courseFolder, "Lectures");
+                lecturesFolder.mkdirs();
+
+                // Create Assignments and Notes folders inside Lectures
+                File assignmentsFolder = new File(lecturesFolder, "Assignments");
+                File notesFolder = new File(lecturesFolder, "Notes");
+
+                assignmentsFolder.mkdirs();
+                notesFolder.mkdirs();
+
+                // Create Labs folder
+                File labsFolder = new File(courseFolder, "Labs");
+                labsFolder.mkdirs();
+
+                // Create Assignments, Activities and Project folders inside Labs
+                File labAssignmentsFolder = new File(labsFolder, "Assignments");
+                File labActivitiesFolder = new File(labsFolder, "Activities");
+                File labProjectFolder = new File(labsFolder, "Project");
+
+                labAssignmentsFolder.mkdirs();
+                labActivitiesFolder.mkdirs();
+                labProjectFolder.mkdirs();
+
+            } else {
+                // Create Assignments and Notes folders
+                File assignmentFolder = new File(courseFolder, "Assignments");
+                File notesFolder = new File(courseFolder, "Notes");
+
+                assignmentFolder.mkdirs();
+                notesFolder.mkdirs();
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
         }
     }
 }
