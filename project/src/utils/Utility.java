@@ -112,4 +112,25 @@ public class Utility {
             return false;
         }
     }
+
+    /**
+     * Creates a new semester folder in the specified path.
+     *
+     * @param path The path to create the semester folder in.
+     * @param semester The name of the semester.
+     * @return true if the semester folder was created successfully, false
+     * otherwise.
+     */
+    public static boolean createSemester(String path, String semester) {
+        File semesterFile = new File(path, semester);
+
+        // Check if the semester folder already exists
+        if (!semesterFile.exists()) {
+            // Create the semester folder
+            return semesterFile.mkdirs();
+        }
+
+        // Semester folder already exists
+        return false;
+    }
 }
